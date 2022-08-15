@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "run:test": "tsc && node <folderName>/*.spec.js",
-    "format:code": "prettier --write \"**/*.js\"",
-    "test:run:report": "npx playwright test --headed --reporter=allure-playwright",
     "test:run": "npx playwright test --headed",
+    "test:run:report": "npx playwright test --headed --reporter=allure-playwright",
     "allure:reporter": "npx allure generate ./allure-results --clean",
     "allure:open": "npx allure open ./allure-report"
   },
