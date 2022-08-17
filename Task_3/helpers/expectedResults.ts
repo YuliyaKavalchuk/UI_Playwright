@@ -4,3 +4,4 @@ export const urlSignIn: string = "/login";
 export const hrefAttr: string = "href";
 export const errMessage: string = "Sorry, we can't find an account with this email address. Please try again or ";
 export const netflixExpected: string = "netflix";
+export const errorMessagePasswordExpected: string = "Your password must contain between 4 and 60 characters.";

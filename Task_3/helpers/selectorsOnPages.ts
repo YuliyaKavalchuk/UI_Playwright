@@ -1,4 +1,3 @@
-// export const signInMain: string = 'a[class="authLinks redButton"]';
 export const signInMain: string = "a.authLinks.redButton";
 export const btnSignIn: string = 'button[type="submit"]';
 export const emailInput: string = 'input[name="userLoginId"]';
@@ -7,4 +6,4 @@ export const btnManageProfile: string = "a[aria-label='Manage Profiles']";
 export const btnSignUpNow: string = "div.login-signup-now > a";
 export const rememberMe: string = 'input[type="checkbox"]';
 export const errorMessage: string = 'div[data-uia="text"]';
-export const header: string = 'h1[data-uia="hero-title"]';
+export const errorMessagePassword: string = 'div[data-uia="password-field+error"]';

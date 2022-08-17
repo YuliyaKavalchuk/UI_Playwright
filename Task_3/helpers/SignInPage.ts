@@ -1,5 +1,5 @@
-import { signInMain } from "./selectorsSignInPage";
-import { timeOut, emailTemplate, emailSeparator, specialCharacters, alphabet } from "./constantsSignInPage";
+import { signInMain } from "./selectorsOnPages";
+import { timeOut, emailTemplate, emailSeparator, specialCharacters, alphabet, space } from "./constantsSignInPage";
 import { Page } from "@playwright/test";
 
 export default class {
@@ -35,5 +35,15 @@ export default class {
 
     generateRandomLetterUpperCase(): string {
         return alphabet.toUpperCase()[Math.floor(Math.random() * alphabet.length)];
+    }
+
+    generateRandomString(length: number): string {
+        let res: string = space;
+        let characters: string = alphabet + alphabet.toUpperCase();
+        let charactersLength: number = characters.length;
+        for (let i: number = 0; i < length; i++) {
+            res += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return res;
     }
 }

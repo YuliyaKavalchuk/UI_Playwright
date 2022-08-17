@@ -5,3 +5,4 @@ export const emailTemplate: string = "your.email@gmail.com";
 export const emailSeparator: string = "@";
 export const specialCharacters: string = "<,.(*$/%_-@'!~`:?";
 export const alphabet: string = "abcdefghijklmnopqrstuvwxyz";
+export const space: string = " ";
