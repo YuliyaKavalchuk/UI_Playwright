@@ -6,3 +6,5 @@ export const email_Separator: string = "@";
 export const special_Characters: string = "<,.(*$/%_-@'!~`:?";
 export const alphabet: string = "abcdefghijklmnopqrstuvwxyz";
 export const space: string = " ";
+export const password_Invalid_Length: number = 61;
+export const url_Log: string = "https://www.netflix.com/personalization/log";

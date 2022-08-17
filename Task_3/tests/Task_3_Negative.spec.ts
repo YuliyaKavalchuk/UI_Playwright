@@ -4,6 +4,7 @@ import SignInPage from "../helpers/SignInPage";
 import { btnSignUpNow, errorMessage, rememberMe } from "../helpers/selectorsOnPages";
 import { url } from "../helpers/constantsMainPage";
 import { err_Message, href_Attr, url_Main } from "../helpers/expectedResults";
+import { password_Invalid_Length, url_Log } from "../helpers/constantsSignInPage";
 
 test.describe("Negative tests on Netflix/by", () => {
     test.beforeEach(async ({ page }) => {
@@ -42,9 +43,10 @@ test.describe("Negative tests on Netflix/by", () => {
     test("Check Error message for password field not contain the password", async ({ page }) => {
         await page.click(signInMain);
         const signIn = new SignInPage(page);
-        const passInput: string = signIn.generateRandomString(61);
+        const passInput: string = signIn.generateRandomString(password_Invalid_Length);
         await page.locator(passwordInput).click();
-        await page.locator(passwordInput).fill(passInput);
+        await page.locator(passwordInput).type(passInput);
+        await page.waitForRequest(url_Log);
         await page.locator(btnSignIn).click();
         await expect(page.locator(errorMessagePassword)).not.toContainText(passInput);
     });

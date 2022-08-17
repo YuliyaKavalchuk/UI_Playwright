@@ -6,4 +6,4 @@ export const btnManageProfile: string = "a[aria-label='Manage Profiles']";
 export const btnSignUpNow: string = "div.login-signup-now > a";
 export const rememberMe: string = 'input[type="checkbox"]';
 export const errorMessage: string = 'div[data-uia="text"]';
-export const errorMessagePassword: string = 'div[data-uia="password-field+error"]';
+export const errorMessagePassword: string = "div.inputError";
