@@ -1,53 +1,53 @@
 import { expect, test } from "@playwright/test";
-import { btnSignIn, emailInput, errorMessagePassword, passwordInput, signInMain } from "../helpers/selectorsOnPages";
+import { BTNSIGNIN, EMAILINPUT, ERRORMESSAGEPASSWORD, PASSWORDINPUT, SIGNINMAIN } from "../helpers/selectorsOnPages";
 import SignInPage from "../helpers/SignInPage";
-import { btnSignUpNow, errorMessage, rememberMe } from "../helpers/selectorsOnPages";
-import { url } from "../helpers/constantsMainPage";
-import { err_Message, href_Attr, url_Main } from "../helpers/expectedResults";
-import { password_Invalid_Length, url_Log } from "../helpers/constantsSignInPage";
+import { BTNSIGNUPNOW, ERRORMESSAGE, REMEMBERME } from "../helpers/selectorsOnPages";
+import { URL } from "../helpers/constantsMainPage";
+import { ERR_MESSAGE, HREF_ATTR, URL_MAIN } from "../helpers/expectedResults";
+import { PASSWORD_INVALID_LENGTH, URL_LOG } from "../helpers/constantsSignInPage";
 
 test.describe("Negative tests on Netflix/by", () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto(url);
+        await page.goto(URL);
     });
     test("Check the URL is not netflix.com", async ({ page }) => {
-        await expect(page).not.toHaveURL(url_Main);
+        await expect(page).not.toHaveURL(URL_MAIN);
     });
     test("Check 'Sign In' button on the main page is not disabled", async ({ page }) => {
-        await expect(page.locator(signInMain)).not.toBeDisabled;
+        await expect(page.locator(SIGNINMAIN)).not.toBeDisabled;
     });
     test("Check 'Sign In' button on SignIn page is not disabled when user lands on the page", async ({ page }) => {
-        await page.click(signInMain);
-        await expect(page.locator(btnSignIn)).not.toBeDisabled;
+        await page.click(SIGNINMAIN);
+        await expect(page.locator(BTNSIGNIN)).not.toBeDisabled;
     });
     test("Check 'Remember Me' checkbox is not hidden on Sign In page", async ({ page }) => {
-        await page.click(signInMain);
-        await expect(page.locator(rememberMe)).not.toBeHidden();
+        await page.click(SIGNINMAIN);
+        await expect(page.locator(REMEMBERME)).not.toBeHidden();
     });
     test("Check 'Sign up now' does not links to the default netflix.com", async ({ page }) => {
-        await page.click(signInMain);
-        await page.waitForSelector(btnSignUpNow);
-        await expect(page.locator(btnSignUpNow)).not.toHaveAttribute(href_Attr, url_Main);
+        await page.click(SIGNINMAIN);
+        await page.waitForSelector(BTNSIGNUPNOW);
+        await expect(page.locator(BTNSIGNUPNOW)).not.toHaveAttribute(HREF_ATTR, URL_MAIN);
     });
     test("Check error message when user enters invalid data", async ({ page }) => {
         const signIn = new SignInPage(page);
         await signIn.signIn(
-            emailInput,
-            passwordInput,
+            EMAILINPUT,
+            PASSWORDINPUT,
             signIn.getEmailRandom(),
             signIn.getPasswordRandom(0, 9),
-            btnSignIn,
+            BTNSIGNIN,
         );
-        await expect(page.locator(errorMessage)).toContainText(err_Message);
+        await expect(page.locator(ERRORMESSAGE)).toContainText(ERR_MESSAGE);
     });
     test("Check Error message for password field not contain the password", async ({ page }) => {
-        await page.click(signInMain);
+        await page.click(SIGNINMAIN);
         const signIn = new SignInPage(page);
-        const passInput: string = signIn.generateRandomString(password_Invalid_Length);
-        await page.locator(passwordInput).click();
-        await page.locator(passwordInput).type(passInput);
-        await page.waitForRequest(url_Log);
-        await page.locator(btnSignIn).click();
-        await expect(page.locator(errorMessagePassword)).not.toContainText(passInput);
+        const passInput: string = signIn.generateRandomString(PASSWORD_INVALID_LENGTH);
+        await page.locator(PASSWORDINPUT).click();
+        await page.locator(PASSWORDINPUT).type(passInput);
+        await page.waitForRequest(URL_LOG);
+        await page.locator(BTNSIGNIN).click();
+        await expect(page.locator(ERRORMESSAGEPASSWORD)).not.toContainText(passInput);
     });
 });

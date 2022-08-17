@@ -1,1 +1,1 @@
-export const url: string = "/";
+export const URL: string = "/";

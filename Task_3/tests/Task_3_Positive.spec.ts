@@ -1,45 +1,45 @@
 import { expect, test } from "@playwright/test";
-import { emailInput, btnSignIn, signInMain, passwordInput } from "../helpers/selectorsOnPages";
+import { EMAILINPUT, BTNSIGNIN, SIGNINMAIN, PASSWORDINPUT } from "../helpers/selectorsOnPages";
 import SignInPage from "../helpers/SignInPage";
-import { title_Expected, netflix_Expected, href_Attr, url_SignIn } from "../helpers/expectedResults";
-import { url } from "../helpers/constantsMainPage";
-import { btnManageProfile, rememberMe } from "../helpers/selectorsOnPages";
-import { email, password } from "../helpers/constantsSignInPage";
+import { TITLE_EXPECTED, NETFLIX_EXPECTED, HREF_ATTR, URL_SIGNIN } from "../helpers/expectedResults";
+import { URL } from "../helpers/constantsMainPage";
+import { BTNMANAGEPROFILE, REMEMBERME } from "../helpers/selectorsOnPages";
+import { EMAIL, PASSWORD } from "../helpers/constantsSignInPage";
 
 test.describe("Positive tests on Netflix/by", () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto(url);
+        await page.goto(URL);
     });
     test("Check the main page URL to contain 'netflix'", async ({ page }) => {
-        await expect(page.url()).toContain(netflix_Expected);
+        await expect(page.url()).toContain(NETFLIX_EXPECTED);
     });
     test("Check the 'Title' of Netflix website is 'Netflix Belarus - Watch TV Shows Online, Watch Movies Online' ", async ({
         page,
     }) => {
-        await expect(page).toHaveTitle(title_Expected);
+        await expect(page).toHaveTitle(TITLE_EXPECTED);
     });
     test("Check 'Sign In' button links to Sign In page", async ({ page }) => {
-        await expect(page.locator(signInMain)).toHaveAttribute(href_Attr, url_SignIn);
+        await expect(page.locator(SIGNINMAIN)).toHaveAttribute(HREF_ATTR, URL_SIGNIN);
     });
     test("Check 'Sign In' button is enabled ", async ({ page }) => {
-        await page.click(signInMain);
-        await expect(page.locator(btnSignIn)).toBeEnabled();
+        await page.click(SIGNINMAIN);
+        await expect(page.locator(BTNSIGNIN)).toBeEnabled();
     });
     test("Check Sign In page has empty 'Email' field by default", async ({ page }) => {
-        await page.click(signInMain);
-        await expect(page.locator(emailInput)).toBeEmpty();
+        await page.click(SIGNINMAIN);
+        await expect(page.locator(EMAILINPUT)).toBeEmpty();
     });
     test("Check Sign In page has empty 'Password' field by default ", async ({ page }) => {
-        await page.click(signInMain);
-        await expect(page.locator(passwordInput)).toBeEmpty();
+        await page.click(SIGNINMAIN);
+        await expect(page.locator(PASSWORDINPUT)).toBeEmpty();
     });
     test("Check 'Remeber Me' checkbox is selected by default on Sign In page", async ({ page }) => {
-        await page.click(signInMain);
-        await expect(page.locator(rememberMe)).toBeChecked();
+        await page.click(SIGNINMAIN);
+        await expect(page.locator(REMEMBERME)).toBeChecked();
     });
     test("Check user can login with valid data", async ({ page }) => {
         const signIn = new SignInPage(page);
-        await signIn.signIn(emailInput, passwordInput, email, password, btnSignIn);
-        await expect(page.locator(btnManageProfile)).toBeEnabled();
+        await signIn.signIn(EMAILINPUT, PASSWORDINPUT, EMAIL, PASSWORD, BTNSIGNIN);
+        await expect(page.locator(BTNMANAGEPROFILE)).toBeEnabled();
     });
 });
