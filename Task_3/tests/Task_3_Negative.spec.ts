@@ -43,10 +43,8 @@ test.describe("Negative tests on Netflix/by", () => {
         await page.click(signInMain);
         const signIn = new SignInPage(page);
         await page.locator(passwordInput).click();
-        await page.pause();
         await page.locator(passwordInput).fill(signIn.generateRandomString(61));
         await page.locator(btnSignIn).click();
-        await page.pause();
         await expect(page.locator(errorMessagePassword)).toContainText(errorMessagePasswordExpected);
     });
 });
