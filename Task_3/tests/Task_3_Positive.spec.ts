@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { emailInput, btnSignIn, signInMain, passwordInput } from "../helpers/selectorsOnPages";
 import SignInPage from "../helpers/SignInPage";
-import { titleExpected, netflixExpected, hrefAttr, urlSignIn } from "../helpers/expectedResults";
+import { title_Expected, netflix_Expected, href_Attr, url_SignIn } from "../helpers/expectedResults";
 import { url } from "../helpers/constantsMainPage";
 import { btnManageProfile, rememberMe } from "../helpers/selectorsOnPages";
 import { email, password } from "../helpers/constantsSignInPage";
@@ -11,15 +11,15 @@ test.describe("Positive tests on Netflix/by", () => {
         await page.goto(url);
     });
     test("Check the main page URL to contain 'netflix'", async ({ page }) => {
-        await expect(page.url()).toContain(netflixExpected);
+        await expect(page.url()).toContain(netflix_Expected);
     });
     test("Check the 'Title' of Netflix website is 'Netflix Belarus - Watch TV Shows Online, Watch Movies Online' ", async ({
         page,
     }) => {
-        await expect(page).toHaveTitle(titleExpected);
+        await expect(page).toHaveTitle(title_Expected);
     });
     test("Check 'Sign In' button links to Sign In page", async ({ page }) => {
-        await expect(page.locator(signInMain)).toHaveAttribute(hrefAttr, urlSignIn);
+        await expect(page.locator(signInMain)).toHaveAttribute(href_Attr, url_SignIn);
     });
     test("Check 'Sign In' button is enabled ", async ({ page }) => {
         await page.click(signInMain);

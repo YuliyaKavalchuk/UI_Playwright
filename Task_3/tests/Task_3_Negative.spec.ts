@@ -3,14 +3,14 @@ import { btnSignIn, emailInput, errorMessagePassword, passwordInput, signInMain 
 import SignInPage from "../helpers/SignInPage";
 import { btnSignUpNow, errorMessage, rememberMe } from "../helpers/selectorsOnPages";
 import { url } from "../helpers/constantsMainPage";
-import { errMessage, errorMessagePasswordExpected, hrefAttr, urlMain } from "../helpers/expectedResults";
+import { err_Message, href_Attr, url_Main } from "../helpers/expectedResults";
 
 test.describe("Negative tests on Netflix/by", () => {
     test.beforeEach(async ({ page }) => {
         await page.goto(url);
     });
     test("Check the URL is not netflix.com", async ({ page }) => {
-        await expect(page).not.toHaveURL(urlMain);
+        await expect(page).not.toHaveURL(url_Main);
     });
     test("Check 'Sign In' button on the main page is not disabled", async ({ page }) => {
         await expect(page.locator(signInMain)).not.toBeDisabled;
@@ -26,7 +26,7 @@ test.describe("Negative tests on Netflix/by", () => {
     test("Check 'Sign up now' does not links to the default netflix.com", async ({ page }) => {
         await page.click(signInMain);
         await page.waitForSelector(btnSignUpNow);
-        await expect(page.locator(btnSignUpNow)).not.toHaveAttribute(hrefAttr, urlMain);
+        await expect(page.locator(btnSignUpNow)).not.toHaveAttribute(href_Attr, url_Main);
     });
     test("Check error message when user enters invalid data", async ({ page }) => {
         const signIn = new SignInPage(page);
@@ -37,14 +37,16 @@ test.describe("Negative tests on Netflix/by", () => {
             signIn.getPasswordRandom(0, 9),
             btnSignIn,
         );
-        await expect(page.locator(errorMessage)).toContainText(errMessage);
+        await expect(page.locator(errorMessage)).toContainText(err_Message);
     });
-    test("Check password in not more than 60 char.", async ({ page }) => {
+    test("Check Error message for password field not contain the password", async ({ page }) => {
         await page.click(signInMain);
         const signIn = new SignInPage(page);
+        const passInput: string = signIn.generateRandomString(61);
         await page.locator(passwordInput).click();
-        await page.locator(passwordInput).fill(signIn.generateRandomString(61));
+        await page.locator(passwordInput).fill(passInput);
+        await page.pause();
         await page.locator(btnSignIn).click();
-        await expect(page.locator(errorMessagePassword)).toContainText(errorMessagePasswordExpected);
+        await expect(page.locator(errorMessagePassword)).not.toContainText(passInput);
     });
 });
